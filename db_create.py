@@ -1,8 +1,8 @@
-#/usr/bin/env python
+#!/usr/bin/env python
 from migrate.versioning import api
 from websiteconfig import SQLALCHEMY_DATABASE_URI
 from websiteconfig import SQLALCHEMY_MIGRATE_REPO
-from tabs import db
+from tabs.database import db
 import os.path
 db.create_all()
 if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
