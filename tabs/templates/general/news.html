@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=news>
+  <h1>news</h1>
+  {% if news %}
+  {% for new in news %}
+  <h2>{{ new.title }}</h2>
+  <h3>{{ new.timestamp }}</h3>
+  <p>{{ new.body }}</p>
+  {% endfor %}
+  {% else %}
+  <p>no recent news</p>
+  {% endif %}
+</div>
+{% endblock %}

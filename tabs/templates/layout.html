@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang=en>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  
+  <body>
+    <div class=nav>
+      <div class=logo>
+	<h1>tabs</h1>
+      </div>
+      <div class=menu>
+	<a href="{{ url_for('general.index') }}">home</a> |
+	<a href="{{ url_for('general.news') }}">news</a> |
+	<a href="{{ url_for('general.updates') }}">updates</a> |
+	<a href="{{ url_for('general.about') }}">about</a>
+      </div>
+    </div>
+    
+    {% block body %}{% endblock %}
+    
+    <div class=footer>
+      <p>
+	2015 by Karl Eklund
+      </p>
+    </div>
+  </body>
+</html>

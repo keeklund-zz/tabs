@@ -1,1 +1,36 @@
-<h1>Hello world</h1>
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=blurb>
+  <h1>simple, lightweight data tracker</h1>
+  <p>
+    This is where I put an abstract-like description of the site.
+  </p>
+  <p>
+    more stuff here.
+  </p>
+</div>
+
+<div class=news>
+  <h1>latest news</h1>
+  {% if news %}
+  {% for new in news %}
+  <h2>{{ new.title }}</h2>
+  <p>{{ new.body }}</p>
+  {% endfor %}
+  {% else %}
+  <p>no recent news</p>
+  {% endif %}
+</div>
+
+<div class=updates>
+  <h1>recent updates</h1>
+  {% if updates %}
+  {% for update in updates %}
+  <h2>{{ update.name }}</h2>
+  {% endfor %}
+  {% else %}
+  <p>no recent updates</p>
+  {% endif %}
+</div>
+{% endblock %}
