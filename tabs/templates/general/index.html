@@ -11,26 +11,26 @@
   </p>
 </div>
 
+<div class=updates>
+  <h2>recent updates (<a href="{{ url_for('general.updates') }}">more</a>)</h2>
+  {% if updates %}
+  {% for update in updates %}
+  <h3>{{ update.name }}</h3>
+  {% endfor %}
+  {% else %}
+  <p>no recent updates</p>
+  {% endif %}
+</div>
+
 <div class=news>
-  <h1>latest news</h1>
+  <h2>latest news (<a href="{{ url_for('general.news') }}">more</a>)</h2>
   {% if news %}
   {% for new in news %}
-  <h2>{{ new.title }}</h2>
+  <h3>{{ new.title }}</h3>
   <p>{{ new.body }}</p>
   {% endfor %}
   {% else %}
   <p>no recent news</p>
-  {% endif %}
-</div>
-
-<div class=updates>
-  <h1>recent updates</h1>
-  {% if updates %}
-  {% for update in updates %}
-  <h2>{{ update.name }}</h2>
-  {% endfor %}
-  {% else %}
-  <p>no recent updates</p>
   {% endif %}
 </div>
 {% endblock %}

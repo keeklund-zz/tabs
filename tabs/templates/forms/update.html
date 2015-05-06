@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=forms>
+  <h1>new update</h1>
+  <form action="" method="post" name="new_updates">
+    {{ form.hidden_tag() }}
+    <p>Title: {{ form.title }}</p>
+    <p>User ID: {{ form.user_id }}</p>
+    <p>Body: {{ form.body }}</p>
+    <p><input type="submit" value="post"></p>
+  </form>
+</div>
+{% endblock %}

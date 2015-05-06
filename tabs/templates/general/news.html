@@ -3,6 +3,12 @@
 {% block body %}
 <div class=news>
   <h1>news</h1>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+    {{ message }}
+  </div>
+  {% endfor %}
+
   {% if news %}
   {% for new in news %}
   <h2>{{ new.title }}</h2>
@@ -12,5 +18,6 @@
   {% else %}
   <p>no recent news</p>
   {% endif %}
+
 </div>
 {% endblock %}

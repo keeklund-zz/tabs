@@ -7,23 +7,26 @@
   
   <body>
     <div class=nav>
-      <div class=logo>
-	<h1>tabs</h1>
+      <div id=logo>
+	<a href="{{ url_for('general.index') }}">tabs</a>
       </div>
-      <div class=menu>
-	<a href="{{ url_for('general.index') }}">home</a> |
-	<a href="{{ url_for('general.news') }}">news</a> |
-	<a href="{{ url_for('general.updates') }}">updates</a> |
-	<a href="{{ url_for('general.about') }}">about</a>
+      <div id=menu>
+	<ul>
+	  <li><a href="{{ url_for('general.index') }}">home</a></li>
+	  <li><a href="{{ url_for('tracker.index') }}">tracker</a></li>
+	</ul>
       </div>
     </div>
-    
+
+    <div class=content>
     {% block body %}{% endblock %}
-    
-    <div class=footer>
-      <p>
-	2015 by Karl Eklund
-      </p>
     </div>
+    
+    <footer>
+      <p>
+	2015 - <a href="http://www.fureylab.web.unc.edu">Furey Lab</a>,
+	<a href="http://www.unc.edu">The University of North Carolina at Chapel Hill</a>
+      </p>
+    </footer>
   </body>
 </html>

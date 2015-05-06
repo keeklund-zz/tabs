@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=general>
+  <h1>data tracker</h1>
+  <h2>projects:</h2>
+  <ul>
+    {% for project in projects %}
+    <li>{{ project }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
