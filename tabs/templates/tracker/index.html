@@ -3,11 +3,24 @@
 {% block body %}
 <div class=general>
   <h1>data tracker</h1>
-  <h2>projects:</h2>
+  <h2>projects (<a href="{{ url_for('tracker.projects') }}">more</a>)</h2>
+  {% if projects %}
+  {% for project in projects %}
+  <p>{{ project.name }}</p>
+    {% endfor %}
+  {% else %}
+  <p>no recent projects</p>
+  {% endif %}
+  
+  <h2>samples (<a href="{{ url_for('tracker.samples') }}">more</a>)</h2>
+  {% if samples %}
   <ul>
-    {% for project in projects %}
-    <li>{{ project }}</li>
+    {% for sample in samples %}
+    <li>{{ sample.name }}</li>
     {% endfor %}
   </ul>
+  {% else %}
+  <p>no recent samples</p>
+  {% endif %}
 </div>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=projects>
+  <h1>projects</h1>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+  {% if projects %}
+  {% for project in projects %}
+  <p>{{ project.name }}</p>
+  {% endfor %}
+  {% else %}
+  <p>no recent projects</p>
+  {% endif %}
+
+</div>
+{% endblock %}

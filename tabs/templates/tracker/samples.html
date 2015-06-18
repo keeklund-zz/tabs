@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=samples>
+  <h1>samples</h1>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+  {% if samples %}
+  {% for sample in samples %}
+  <p>{{ sample.name }}</p>
+  {% endfor %}
+  {% else %}
+  <p>no recent samples</p>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@ from os.path import basename, splitext
 from flask import abort, make_response
 from flask import Blueprint, jsonify, request
 from tabs import db
-from tabs.database import User, News, Updates, Project
+from tabs.database import Users, News, Updates, Projects
 
 __version__ = splitext(basename(__file__))[0]
 
