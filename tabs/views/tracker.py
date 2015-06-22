@@ -12,9 +12,13 @@ def index():
                            projects=projects,
                            samples=samples,)
 
-@mod.route('/projects')
-def projects():
-    projects = Projects.query.order_by(Projects.timestamp.desc()).all()
+@mod.route('/projects/')
+@mod.route('/projects/<int:id>')
+def projects(id=None):
+    if not id:
+        projects = Projects.query.order_by(Projects.timestamp.desc()).all()
+    else:
+        projects = Projects.query.get(id)
     return render_template('tracker/projects.html',
                            title='projects',
                            projects=projects)
