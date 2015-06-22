@@ -4,12 +4,14 @@
 <div class=general>
   <h1>data tracker</h1>
   <h2>projects (<a href="{{ url_for('tracker.projects') }}">more</a>)</h2>
-  {% if projects %}
-  {% for project in projects %}
-  <p>{{ project.name }}</p>
+  {% if projects and projects is sequence %}
+    {% for project in projects %}
+    <p><a href="projects/{{ project.id }}">{{ project.name }}</a></p>
     {% endfor %}
+  {% elif projects and projects is not sequence %}
+    <p><a href="projects/{{ projects.id }}">{{ projects.name }}</a></p>
   {% else %}
-  <p>no recent projects</p>
+    <p>no recent projects</p>
   {% endif %}
   
   <h2>samples (<a href="{{ url_for('tracker.samples') }}">more</a>)</h2>

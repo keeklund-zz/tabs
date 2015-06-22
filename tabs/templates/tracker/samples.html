@@ -9,12 +9,14 @@
   </div>
   {% endfor %}
 
-  {% if samples %}
+  {% if samples and samples is sequence %}
   {% for sample in samples %}
-  <p>{{ sample.name }}</p>
+    <p><a href="samples/{{ sample.id }}">{{ sample.name }}</a></p>
   {% endfor %}
+  {% elif samples and samples is not sequence %}
+  <p><a href="samples/{{ samples.id }}">{{ samples.name }}</a></p>
   {% else %}
-  <p>no recent samples</p>
+    <p>no recent samples</p>
   {% endif %}
 
 </div>
