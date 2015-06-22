@@ -15,7 +15,7 @@
   <h2>recent updates (<a href="{{ url_for('general.updates') }}">more</a>)</h2>
   {% if updates %}
   {% for update in updates %}
-  <p>{{ update.title }}</p>
+  <p><a href="updates/{{ update.id }}">{{ update.title }}</a></p>
   {% endfor %}
   {% else %}
   <p>no recent updates</p>
@@ -26,7 +26,7 @@
   <h2>latest news (<a href="{{ url_for('general.news') }}">more</a>)</h2>
   {% if news %}
   {% for new in news %}
-  <p>{{ new.title }}</p>
+  <p><a href="news/{{ new.id }}">{{ new.title }}</a></p>
   {% endfor %}
   {% else %}
   <p>no recent news</p>
