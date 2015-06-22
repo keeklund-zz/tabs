@@ -9,12 +9,16 @@
   </div>
   {% endfor %}
 
-  {% if news %}
+  {% if news and news is sequence %}
   {% for new in news %}
   <h2>{{ new.title }}</h2>
   <h3>{{ new.timestamp }}</h3>
   <p>{{ new.body }}</p>
   {% endfor %}
+  {% elif news and news is not sequence %}
+  <h2>{{ news.title }}</h2>
+  <h3> {{news.timestamp }}</h3>
+  <p>{{ news.body }}</p>
   {% else %}
   <p>no recent news</p>
   {% endif %}

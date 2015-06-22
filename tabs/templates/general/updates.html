@@ -9,12 +9,16 @@
   </div>
   {% endfor %}
 
-  {% if updates %}
+  {% if updates and updates is sequence %}
   {% for update in updates %}
   <h2>{{ update.title }}</h2>
   <h3>{{ update.timestamp }}</h3>
   <p>{{ update.body }}</p>
   {% endfor %}
+  {% elif updates and updates is not sequence %}
+  <h2>{{ updates.title }}</h2>
+  <h3>{{ updates.timestamp }}</h3>
+  <p>{{ updates.body }}</h3>
   {% else %}
   <p>no recent updates</p>
   {% endif %}
