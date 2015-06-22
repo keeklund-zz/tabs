@@ -20,16 +20,29 @@ def admin():
     return render_template('general/admin.html',
                            title='admin')
 
-@mod.route('/news')
-def news():
-    news = News.query.order_by(News.timestamp.desc()).all()
+
+@mod.route('/news/') 
+@mod.route('/news/<int:id>')
+def news(id=None):
+    if not id:
+        news = News.query.order_by(News.timestamp.desc()).all()
+    else:
+        news = News.query.get(id)
+    if not news:
+        return render_template('404.html'), 404
     return render_template('general/news.html',
                            title='news',
                            news=news)
 
-@mod.route('/updates')
-def updates():
-    updates = Updates.query.order_by(Updates.timestamp.desc()).all()
+@mod.route('/updates/')
+@mod.route('/updates/<int:id>')
+def updates(id=None):
+    if not id:
+        updates = Updates.query.order_by(Updates.timestamp.desc()).all()
+    else:
+        updates = Updates.query.get(id)
+    if not updates:
+        return render_template('404.html'), 404
     return render_template('general/updates.html',
                            title='updates',
                            updates=updates,)
