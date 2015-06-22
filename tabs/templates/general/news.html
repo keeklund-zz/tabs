@@ -11,12 +11,12 @@
 
   {% if news and news is sequence %}
   {% for new in news %}
-  <h2>{{ new.title }}</h2>
+  <h2><a href="{{ new.id }}">{{ new.title }}</a></h2>
   <h3>{{ new.timestamp }}</h3>
   <p>{{ new.body }}</p>
   {% endfor %}
   {% elif news and news is not sequence %}
-  <h2>{{ news.title }}</h2>
+  <h2><a href="{{ news.id }}">{{ news.title }}</a></h2>
   <h3> {{news.timestamp }}</h3>
   <p>{{ news.body }}</p>
   {% else %}
