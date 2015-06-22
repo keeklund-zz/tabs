@@ -9,10 +9,12 @@
   </div>
   {% endfor %}
 
-  {% if projects %}
+  {% if projects and projects is sequence %}
   {% for project in projects %}
-  <p>{{ project.name }}</p>
+  <p><a href="projects/{{ project.id }}">{{ project.name }}</a></p>
   {% endfor %}
+  {% elif projects and projects is not sequence %}
+  <p><a href="projects/{{ projects.id }}">{{ project.name }}</a></p>
   {% else %}
   <p>no recent projects</p>
   {% endif %}
