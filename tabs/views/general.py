@@ -49,4 +49,3 @@ def updates(id=None):
 
 
 # pagination on news
-# 
