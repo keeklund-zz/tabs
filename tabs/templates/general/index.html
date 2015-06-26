@@ -1,8 +1,14 @@
-{% extends "layout.html" %}
+{% extends "base_layout.html" %}
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <div class=blurb>
   <h1>simple, lightweight data tracker</h1>
+  {% for message in get_flashed_messages() %} 
+  <div class=flash>
+  {{ message }}
+  </div>
+  {% endfor %}
+        
   <p>
     This is where I put an abstract-like description of the site.
   </p>
