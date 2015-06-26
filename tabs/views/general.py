@@ -28,7 +28,7 @@ def news(id=None):
         news = News.query.order_by(News.timestamp.desc()).all()
     else:
         news = News.query.get(id)
-    return render_template('general/generic.html',
+    return render_template('general/layout.html',
             data_type='news',
             data=news)
 
@@ -39,7 +39,7 @@ def updates(id=None):
         updates = Updates.query.order_by(Updates.timestamp.desc()).all()
     else:
         updates = Updates.query.get(id)
-    return render_template('general/generic.html',
+    return render_template('general/layout.html',
             data_type='updates',
             data=updates)
 

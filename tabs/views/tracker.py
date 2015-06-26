@@ -19,7 +19,7 @@ def projects(id=None):
         projects = Projects.query.order_by(Projects.timestamp.desc()).all()
     else:
         projects = Projects.query.get(id)
-    return render_template('tracker/generic.html',
+    return render_template('tracker/layout.html',
                            data_type='projects',
                            data=projects)
 
@@ -30,7 +30,7 @@ def samples(id=None):
         samples = Samples.query.order_by(Samples.timestamp.desc()).all()
     else:
         samples = Samples.query.get(id)
-    return render_template('tracker/generic.html',
+    return render_template('tracker/layout.html',
                            data_type='samples',
                            data=samples)
 
