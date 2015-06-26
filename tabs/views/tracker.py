@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template
-from tabs.database import Projects#, Samples
+from tabs.database import Projects, Samples
 
 mod = Blueprint('tracker', __name__, url_prefix='/tracker')
 
 @mod.route('/')
 def index():
     projects = Projects.query.order_by(Projects.timestamp.desc()).limit(5).all()
-    samples = []
+    samples = Samples.query.order_by(Samples.timestamp.desc()).limit(5).all() 
     return render_template('tracker/index.html',
                            title='tracker home',
                            projects=projects,
@@ -19,12 +19,18 @@ def projects(id=None):
         projects = Projects.query.order_by(Projects.timestamp.desc()).all()
     else:
         projects = Projects.query.get(id)
-    return render_template('tracker/projects.html',
-                           title='projects',
-                           projects=projects)
+    return render_template('tracker/generic.html',
+                           data_type='projects',
+                           data=projects)
 
-@mod.route('/samples')
-def samples():
-    return render_template('tracker/samples.html',
-                           title='samples',
-                           samples=None)
+@mod.route('/samples/')
+@mod.route('/samples/<int:id>')
+def samples(id=None):
+    if not id:
+        samples = Samples.query.order_by(Samples.timestamp.desc()).all()
+    else:
+        samples = Samples.query.get(id)
+    return render_template('tracker/generic.html',
+                           data_type='samples',
+                           data=samples)
+

@@ -11,14 +11,14 @@ def index():
     updates = Updates.query.order_by(Updates.timestamp.desc()).limit(5).all()
     news = News.query.order_by(News.timestamp.desc()).limit(5).all()
     return render_template('general/index.html',
-                           title='home',
-                           news=news,
-                           updates=updates,)
+            title='home',
+            news=news,
+            updates=updates,)
 
 @mod.route('/admin')
 def admin():
     return render_template('general/admin.html',
-                           title='admin')
+            title='admin')
 
 
 @mod.route('/news/') 
@@ -28,11 +28,9 @@ def news(id=None):
         news = News.query.order_by(News.timestamp.desc()).all()
     else:
         news = News.query.get(id)
-    if not news:
-        return render_template('404.html'), 404
-    return render_template('general/news.html',
-                           title='news',
-                           news=news)
+    return render_template('general/generic.html',
+            data_type='news',
+            data=news)
 
 @mod.route('/updates/')
 @mod.route('/updates/<int:id>')
@@ -41,11 +39,8 @@ def updates(id=None):
         updates = Updates.query.order_by(Updates.timestamp.desc()).all()
     else:
         updates = Updates.query.get(id)
-    if not updates:
-        return render_template('404.html'), 404
-    return render_template('general/updates.html',
-                           title='updates',
-                           updates=updates,)
-
+    return render_template('general/generic.html',
+            data_type='updates',
+            data=updates)
 
 # pagination on news
