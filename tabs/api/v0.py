@@ -23,14 +23,14 @@ def index():
 
 @mod.route('/users/', methods=['GET'])
 def get_users():
-    user_list = [user.serialize() for user in User.query.all()]
+    user_list = [user.serialize() for user in Users.query.all()]
     return jsonify(version=__version__,
                    users=user_list,
                    num_users=len(user_list),)
 
 @mod.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
-    user_query = User.query.get(id)
+    user_query = Users.query.get(id)
     user_len = 1 if user_query else 0
     user = user_query.serialize() if user_query else {}
     return jsonify(version=__version__,
@@ -43,10 +43,10 @@ def add_user():
        not 'name' in request.json or \
        not 'email' in request.json:
         abort(400)
-    new_user = User(name=request.json['name'], email=request.json['email'])
+    new_user = Users(name=request.json['name'], email=request.json['email'])
     db.session.add(new_user)
     db.session.commit()
-    user_list = [user.serialize() for user in User.query.all()]    
+    user_list = [user.serialize() for user in Users.query.all()]    
     return jsonify(version=__version__,
                    users=user_list,
                    num_users=len(user_list),)
@@ -101,14 +101,14 @@ def get_update(id):
 
 @mod.route('/projects/', methods=['GET'])
 def get_projects():
-    project_list = [project.serialize() for project in Project.query.all()]
+    project_list = [project.serialize() for project in Projects.query.all()]
     return jsonify(version=__version__,
                    projects=project_list,
                    num_projects=len(project_list),)
 
 @mod.route('/projects/<int:id>', methods=['GET'])
 def get_project(id):
-    project_query = Project.query.get(id)
+    project_query = Projects.query.get(id)
     project_len = 1 if project_query else 0
     project = project_query.serialize() if project_query else {}
     return jsonify(version=__version__,
