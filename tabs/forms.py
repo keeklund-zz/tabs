@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField
+from wtforms import SelectField, StringField
 from wtforms.validators import DataRequired
 
 class NewsForm(Form):
@@ -28,3 +28,16 @@ class ProjectForm(Form):
     user_id = StringField('user_id', validators=[DataRequired()])
 
 
+class SampleForm(Form):
+    name = StringField('name', validators=[DataRequired()])
+    project = StringField('project', validators=[DataRequired()])
+
+
+class SequencingForm(Form):
+    type = SelectField('type', 
+            choices=[('ATAC','ATAC Seq'), 
+                ('chip', 'ChipSeq'),
+                ('dnase', 'DNASeq'),
+                ('rna', 'RNASeq'),],
+            validators=[DataRequired()])
+    sample = StringField('sample', validators=[DataRequired()])
