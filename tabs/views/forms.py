@@ -1,7 +1,9 @@
 from flask import Blueprint, flash, redirect, render_template, request
+from sqlalchemy.exc import IntegrityError
 from tabs import db
-from tabs.database import News, Projects, Updates
-from tabs.forms import NewsForm, ProjectForm, UpdateForm, UserForm
+from tabs.database import News, Projects, Samples, Updates, Users
+from tabs.forms import NewsForm, ProjectForm, SampleForm, SequencingForm
+from tabs.forms import UpdateForm, UserForm
 
 mod = Blueprint('forms', __name__, url_prefix='/new')
 
@@ -35,9 +37,17 @@ def new_update():
 def new_user():
     form = UserForm()
     if form.validate_on_submit():
-        flash("New user: '%s' - added successfully!" % form.name.data)
+        user = Users(form.name.data, form.email.data)
+        try:
+            db.session.add(user)
+            db.session.commit()
+            flash("New user: '%s' - added successfully!" % form.name.data)
+        except IntegrityError:
+            flash("New user: '%s' - already exists!" % form.name.data)
         return redirect('/') # CORRECT LOCATION?
-    return render_template('general/index.html')
+    return render_template('forms/user.html',
+            title='new user',
+            form=form)
     
 @mod.route('/project', methods=['GET', 'POST'])
 def new_project():
@@ -47,11 +57,36 @@ def new_project():
         db.session.add(project)
         db.session.commit()
         flash("New Project: '%s' - added successfully!" % form.name.data)
-        return redirect('/projects') 
+        return redirect('/tracker/projects') 
     return render_template('forms/project.html',
-                           tilte='new project',
+                           title='new project',
                            form=form,)
 
 @mod.route('/sample', methods=['GET', 'POST'])
 def new_sample():
-    pass
+    form = SampleForm()
+    if form.validate_on_submit():
+        project = Projects.query.filter_by(name=form.project.data).first()
+        if project:
+            sample = Samples(form.name.data, project)
+            db.session.add(sample)
+            db.session.commit()
+            flash("New Sample: '%s' - added successfully!" % form.name.data)
+        flash("New Sample: '%s' - not submitted. Invalid project" % \
+                form.name.data)
+        return redirect('/tracker/samples')
+    return render_template('forms/sample.html',
+            title='new sample',
+            form=form)
+
+@mod.route('/sample/<int:id>/sequencing', methods=['GET', 'POST'])
+def new_sequencing(id):
+    form = SequencingForm()
+    sample = Samples.query.get(id)
+    if form.validate_on_submit():
+        pass
+    return render_template('forms/sequencing.html',
+            title='new sequencing',
+            form=form,
+            sample=sample)
+    # project? Filter by project, get sample list?
