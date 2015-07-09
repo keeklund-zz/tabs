@@ -15,6 +15,10 @@
   {% endfor %}
   {% elif data and data is not sequence %}
   <p><a href="{{ data.id }}">{{ data.name }}</a></p>
+  <h2>{{ subdata_type }}</h2>
+  {% for subdatum in subdata %}
+  <p><a href="/tracker/samples/{{ subdatum.id }}">{{ subdatum.name }}</a></p>
+  {% endfor %}
   {% else %}
     <p>no recent items</p>
   {% endif %}

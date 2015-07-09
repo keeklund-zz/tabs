@@ -2,11 +2,11 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <div class=forms>
-  <h1>new sample</h1>
+  <h1>new sequencing</h1>
   <form action="" method="post" name="new_project">
     {{ form.hidden_tag() }}
-    <p>Name: {{ form.name }}</p>
-    <p>Project: {{ form.project }}</p>
+    <p>Sample: {{ sample.name }}</p>
+    <p>Type: {{ form.type }}</p>
     <p><input type="submit" value="post"></p>
   </form>
 </div>
