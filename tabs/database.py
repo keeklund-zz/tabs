@@ -71,6 +71,7 @@ class News(NewsBase, db.Model):
     title = db.Column(db.String(140))
     body = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # user = ?
     timestamp = db.Column(db.DateTime)
 
     def __init__(self, title, body, user_id):
@@ -88,6 +89,7 @@ class Updates(UpdatesBase, db.Model):
     title = db.Column(db.String(140))
     body = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    #user = ?
     timestamp = db.Column(db.DateTime)
 
     def __init__(self, title, body, user_id):
@@ -105,9 +107,48 @@ class Projects(ProjectsBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # user = ?
     timestamp = db.Column(db.DateTime)
     
     def __init__(self, name, user_id):
         self.name = name
         self.user_id = user_id
         self.timestamp = datetime.now()
+
+
+class SamplesBase(Base):
+    __json_hidden__ = []
+
+
+class Samples(SamplesBase, db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(140))
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+    project = db.relationship('Projects', 
+            backref = db.backref('samples', lazy = 'dynamic'))
+    timestamp = db.Column(db.DateTime)
+
+    def __init__(self, name, project):
+        self.name = name
+        self.project = project
+        self.timestamp = datetime.now()
+
+
+class SequencingBase(Base):
+    __json_hidden__ = []
+
+
+class Sequencing(SequencingBase, db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    type = db.Column(db.String(80))
+    timestamp = db.Column(db.DateTime)
+    sample_id = db.Column(db.Integer, db.ForeignKey('samples.id'))
+    sample = db.relationship('Samples', 
+            backref = db.backref('samples', lazy = 'dynamic'))
+
+    def __init__(self, type, sample, timestamp=None):
+        self.type = type
+        self.sample = sample
+        if not timestamp:
+            timestamp = datetime.now()
+        self.timestamp = timestamp
