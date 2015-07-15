@@ -34,8 +34,8 @@ class SampleForm(Form):
 
 
 class SequencingForm(Form):
-    type = SelectField('type', 
-            choices=[('ATAC','ATAC Seq'), 
+    name = SelectField('type', 
+            choices=[('atac','ATACSeq'), 
                 ('chip', 'ChipSeq'),
                 ('dnase', 'DNASeq'),
                 ('rna', 'RNASeq'),],

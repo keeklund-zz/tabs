@@ -140,14 +140,14 @@ class SequencingBase(Base):
 
 class Sequencing(SequencingBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    type = db.Column(db.String(80))
+    name = db.Column(db.String(80))
     timestamp = db.Column(db.DateTime)
     sample_id = db.Column(db.Integer, db.ForeignKey('samples.id'))
     sample = db.relationship('Samples', 
             backref = db.backref('samples', lazy = 'dynamic'))
 
-    def __init__(self, type, sample, timestamp=None):
-        self.type = type
+    def __init__(self, name, sample, timestamp=None):
+        self.name = name
         self.sample = sample
         if not timestamp:
             timestamp = datetime.now()

@@ -5,8 +5,14 @@
   <h1>new sequencing</h1>
   <form action="" method="post" name="new_project">
     {{ form.hidden_tag() }}
-    <p>Sample: {{ sample.name }}</p>
-    <p>Type: {{ form.type }}</p>
+    <p><label>Sample: </label>
+      <select id="sample" name="sample">
+<!--	<option value="" disabled="disabled" selected="selected">Please select your sample</option> -->
+	{% for sample in samples %}
+	<option value="{{ sample.id }}">{{ sample.project.name }} | {{ sample.name }}</option>
+	{% endfor %}
+      </select>
+    <p>Type: {{ form.name }}</p>
     <p><input type="submit" value="post"></p>
   </form>
 </div>
