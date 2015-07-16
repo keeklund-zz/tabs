@@ -1,0 +1,35 @@
+{% extends "base_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class={{ data_type }}>
+  <h1>{{ data_type }}</h1>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+    {{ message }}
+  </div>
+  {% endfor %}
+
+  {% set method = "" %}
+  {% if data and data is sequence %}
+  {% for datum in data %}
+  {% if method != datum.name %}
+  {% set method = datum.name %}
+  <h2>{{ datum.name }}</h2>
+  <p><a href="{{ datum.id }}">{{ datum.sample.name }}</a></p>
+  {% else %}
+  <p><a href="{{ datum.id }}">{{ datum.sample.name }}</a></p>
+  {% endif %}
+  {% endfor %}
+  {% elif data and data is not sequence %}
+  <h2>{{ data.name }}</h2>
+  <p><a href="{{ data.id }}">{{ data.sample.name }}</a></p>
+  <h2>{{ subdata_type }}</h2>
+  {% for subdatum in subdata %}
+  <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a></p>
+  {% endfor %}
+  {% else %}
+  <p>no recent items</p>
+  {% endif %}
+
+</div>
+{% endblock %}
