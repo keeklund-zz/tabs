@@ -21,7 +21,7 @@ def projects(id=None):
     else:
         projects = Projects.query.get(id)
         samples = Samples.query.filter_by(project_id=projects.id).all()
-    return render_template('tracker/layout.html',
+    return render_template('tracker/projects.html',
                            data_type='projects',
                            data=projects,
                            subdata_type='samples',
@@ -38,7 +38,7 @@ def samples(id=None):
     sequencing = None
     if not isinstance(samples, list):
         sequencing = Sequencing.query.filter(Sequencing.sample_id==samples.id).all()
-    return render_template('tracker/layout.html',
+    return render_template('tracker/samples.html',
                            data_type='samples',
                            data=samples,
                            subdata_type='sequencing',
@@ -50,6 +50,8 @@ def sequencing(id=None):
     if not id:
         # group by type or sequencing methodology?
         sequencing = Sequencing.query.join(Samples).group_by(Sequencing.name, Samples.name).all()
-        for seq in sequencing:
-            print seq.name, seq.sample.name
-    return render_template('tracker/layout.html')
+    else:
+        sequencing = Sequencing.query.get(id)
+    return render_template('tracker/sequencing.html',
+                           data_type='sequencing',
+                           data=sequencing,)
