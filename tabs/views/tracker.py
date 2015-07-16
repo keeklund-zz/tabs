@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from tabs.database import Projects, Samples, Sequencing
+from tabs.database import Informatics, Projects, Samples, Sequencing
 
 mod = Blueprint('tracker', __name__, url_prefix='/tracker')
 
@@ -55,3 +55,14 @@ def sequencing(id=None):
     return render_template('tracker/sequencing.html',
                            data_type='sequencing',
                            data=sequencing,)
+
+@mod.route('/informatics/')
+@mod.route('/informatics/<int:id>')
+def informatics(id=None):
+    if not id:
+        info = Informatics.query.all()
+    else:
+        info = Informatics.query.get(id)
+    return render_template('tracker/informatics.html',
+                           data_type='informatics',
+                           data=info)

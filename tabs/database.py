@@ -152,3 +152,37 @@ class Sequencing(SequencingBase, db.Model):
         if not timestamp:
             timestamp = datetime.now()
         self.timestamp = timestamp
+
+
+class InformaticsBase(Base):
+    __json_hidden__ = []
+
+
+class Informatics(InformaticsBase, db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(80))
+    host_name = db.Column(db.String(80))
+    file_location = db.Column(db.String(500))
+    pipeline_cmd = db.Column(db.String(500))
+    timestamp = db.Column(db.DateTime)
+    sequencing_id = db.Column(db.Integer, db.ForeignKey('sequencing.id'))
+    sequencing = db.relationship('Sequencing',
+                                 backref = db.backref('sequencing',
+                                                      lazy = 'dynamic'))
+    
+    def __init__(self,
+                 name,
+                 host_name,
+                 file_location,
+                 pipeline_cmd,
+                 sequencing,
+                 timestamp=None):
+        self.name = name
+        self.host_name = host_name
+        self.file_location = file_location
+        self.pipeline_cmd = pipeline_cmd
+        self.sequencing = sequencing
+        if not timestamp:
+            timestamp = datetime.now()
+        self.timestamp = timestamp
+        

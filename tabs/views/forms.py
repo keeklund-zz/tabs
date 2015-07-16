@@ -1,9 +1,10 @@
 from flask import Blueprint, flash, redirect, render_template, request
 from sqlalchemy.exc import IntegrityError
 from tabs import db
-from tabs.database import News, Projects, Samples, Sequencing, Updates, Users
-from tabs.forms import NewsForm, ProjectForm, SampleForm, SequencingForm
-from tabs.forms import UpdateForm, UserForm
+from tabs.database import Informatics, News, Projects, Samples
+from tabs.database import Sequencing, Updates, Users
+from tabs.forms import InformaticsForm, NewsForm, ProjectForm, SampleForm
+from tabs.forms import SequencingForm, UpdateForm, UserForm
 
 mod = Blueprint('forms', __name__, url_prefix='/new')
 
@@ -101,3 +102,25 @@ def new_sequencing():
                            title='new sequencing',
                            form=form,
                            samples=samples)
+
+@mod.route('/informatics', methods=['GET', 'POST'])
+def new_informatics():
+    form = InformaticsForm()
+    sequencing = Sequencing.query.join(Samples).\
+      group_by(Sequencing.name, Samples.name).all()
+    if form.validate_on_submit():
+        seq = Sequencing.query.get(form.sequencing.data)
+        info = Informatics(form.name.data,
+                           form.host_name.data,
+                           form.file_location.data,
+                           form.pipeline_cmd.data,
+                           seq)
+        db.session.add(seq)
+        db.session.commit()
+        flash("New Informatics: '%s' add successfully to '%s - %s'!" % \
+              (form.name.data, seq.sample.name, seq.name))
+        return redirect('/')
+    return render_template('forms/informatics.html',
+                           title='new informatics',
+                           form=form,
+                           sequencing=sequencing)

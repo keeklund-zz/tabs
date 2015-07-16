@@ -34,10 +34,21 @@ class SampleForm(Form):
 
 
 class SequencingForm(Form):
-    name = SelectField('type', 
+    name = SelectField('name', 
             choices=[('atac','ATACSeq'), 
                 ('chip', 'ChipSeq'),
                 ('dnase', 'DNASeq'),
                 ('rna', 'RNASeq'),],
             validators=[DataRequired()])
     sample = StringField('sample', validators=[DataRequired()])
+
+
+class InformaticsForm(Form):
+    name = StringField('name', validators=[DataRequired()])
+    host_name = SelectField('host_name',
+                            choices=[('kure', 'Kure'),
+                                     ('cerberus', 'Cerberus'),],
+                            validators=[DataRequired()])
+    file_location = StringField('file_location', validators=[DataRequired()])
+    pipeline_cmd = StringField('pipeline_cmd', validators=[DataRequired()])
+    sequencing = StringField('sequencing', validators=[DataRequired()])

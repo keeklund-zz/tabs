@@ -1,0 +1,22 @@
+{% extends "base_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class=forms>
+  <h1>new informatics</h1>
+  <form action="" method="post" name="new_informatics">
+    {{ form.hidden_tag() }}
+    <p><label>Sequencing: </label>
+      <select id="sequencing" name="sequencing">
+<!--	<option value="" disabled="disabled" selected="selected">Please select your sample</option> -->
+	{% for seq in sequencing %}
+	<option value="{{ seq.id }}">{{ seq.sample.project.name }} | {{ seq.sample.name }} | {{ seq.name }}</option>
+	{% endfor %}
+      </select>
+    <p>Name: {{ form.name }}</p>
+    <p>Host Name: {{ form.host_name }}</p>
+    <p>File Location: {{ form.file_location }}</p>
+    <p>Pipeline Command: {{ form.pipeline_cmd }}</p>
+    <p><input type="submit" value="post"></p>
+  </form>
+</div>
+{% endblock %}
