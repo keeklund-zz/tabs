@@ -1,6 +1,10 @@
 from flask.ext.wtf import Form
 from wtforms import SelectField, StringField
 from wtforms.validators import DataRequired
+from wtforms_alchemy import model_form_factory
+from tabs.database import Users
+
+BaseModelForm = model_form_factory(Form)
 
 class NewsForm(Form):
 
@@ -17,7 +21,8 @@ class UpdateForm(Form):
     
 
 class UserForm(Form):
-
+    # class Meta:
+    #     model = Users
     name = StringField('name', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired()])
 

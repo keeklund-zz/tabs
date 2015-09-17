@@ -2,5 +2,9 @@ Flask
 Flask-Login
 Flask-RESTful
 Flask-SQLAlchemy
+Flask-Triangle
 Flask-WTF
+flask-marshmallow
+marshmallow-sqlalchemy
 SQLAlchemy-Migrate
+WTForms-Alchemy

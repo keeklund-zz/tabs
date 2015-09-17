@@ -1,4 +1,4 @@
-from flask import Blueprint, g, render_template
+from flask import current_app, Blueprint, g, render_template, send_file
 from tabs import lm
 from tabs.database import News, Updates
 from tabs.forms import NewsForm, UserForm
