@@ -1,0 +1,62 @@
+TABS - a light-weight data tracker 
+
+
+INTRODUCTION 
+
+Tabs, a working title, is intended to be a light-weight Laboratory
+Information Management System (LIMS) 
+
+
+HOME PAGE 
+
+The landing page will remain relatively simple with a navigation bar,
+simple text of your choosing, and a limited amount of the most recent news and
+updates.  Naturally, news and updates have links to their expanded pages, as
+does the navigation bar.  News and updates will also appear in the navigation
+bar along with a link to home via "tabs" and "home" links, and a link to the
+LIMS system, "tracker". The home page also has a footer with links to the Furey
+Lab and University of North Carolina websites: http://fureylab.web.unc.edu/ and
+http://www.unc.edu/, respectively.
+
+
+NAVBAR
+
+
+DOCUMENTATION - /docs
+
+
+NEWS - /news 
+
+News give users the opportunity to posted related items of interest
+related to the site, or data on the site.  As of now, no effort is taken or will
+be taken to limit postings in scope.  The most recent news items are listed on
+the home page, and in descending chronological order via /news.  Links are
+provided on the home page.
+
+
+NEWS ITEM - /news/1 
+
+Users can view news items individually, where 1 in /news/1
+can be replaced by the news identification number.  No effort will be taken to
+turn this into a forum.
+
+
+UPDATES - /updates 
+
+Like with news, this functionality gives users the
+opportunity to share items related to progress on samples, new site features, or
+anything else that may be of interested and not included in news.  No effort has
+or will be taken to separate news and updates contents.
+
+
+UPDATES ITEM - /updates/1 
+
+See section NEWS ITEM.
+
+
+NEWS AND/OR UPDATES 
+
+It is entirely possible, now or in the future, that these
+two sections be combined, as they are already had to distinguish in scope.
+
+TRACKER - /tracker
