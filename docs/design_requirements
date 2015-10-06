@@ -1,0 +1,122 @@
+TABS - a light-weight data tracker
+
+
+INTRODUCTION
+
+Tracking next generation sequencing data and its related meta-data can be an
+onerous task.  Admittedly, many researchers have their own way of organizing and
+recording this critical information.  However, as labs may have encountered in
+the past, meta-data when not recorded in a similar fashion, may lead to
+confusing, incorrect, or results which cannot be reproduced.  To avoid conflict
+and meta-data collisions, our solution, tabs, is intended to be a minimal
+Laboratory Information Management System (LIMS).  It strives to be a
+straight-forward and simplified way of recorded the necessary information for a
+computational lab such has Terry Furey's, at UNC Chapel Hill, by clearly
+defining stages at which data can and should be collected, and requiring
+specific data at appropriate stages of processing. 
+
+The documentation presented here and in the following collection will provide
+the necessary information for all types of users invested in this system.  This
+document serves as a specifications overview.  It outlines, in general terms,
+the nature of the project for each type of user it has been designed for, the
+system itself, and requirements, both functional and non-functional specified
+for its success.  
+
+
+PURPOSE
+
+The purpose of this document collection is to serve as a guide to developers and
+all users responsible for the engineering and usage of the Tabs project.  The
+information presented here, will give developers all the necessary information
+to create, maintain, and test the project's software.  The information presented
+for the users will give them all the necessary knowledge to use the system
+effectively, in their appropriate role.
+
+Specifically, this document strives to document and specify both the software's
+design and requirements.  Sub-directories will provide a more detailed approach
+to documentation and specification while documents in this directory provide a
+higher-level approach.
+
+
+SYSTEM OVERVIEW
+
+Tabs is a custom python web application created to allow meta-data input and
+retrieval throughout the sample's research "life" span.  It will be hosted via
+UNC's CloudApps infrastructure.  Currently, there are no IP restrictions
+limiting access to the UNC's campus. Due to the collaborative nature of the
+Furey lab's projects including institutions other than UNC, a authentication
+method other than ONYEN will be required.
+
+This collaborative nature allows for different institutions to operate on the
+same sample data.  For example, one group initialize a sample and associate
+meta-data related to their operations.  A second group, may harvest material
+intended for various assays, which will be entered and referenced to the
+original sample.  After sequencing, the Furey group will record all informatics
+related meta-data related to the specific sample.  
+
+All information can be relayed to the researchers and supervisors via reporting
+mechanisms, and dashboard views.  In addition, an API exists to facilitate
+programmatic data entry and retrieval should an individual be so inclined.
+
+
+REFERENCES
+
+Python - a general purpose programming language used to create this custom web
+application (https://www.python.org/).
+
+Flask - a minimal web framework for the python programming language
+(http://flask.pocoo.org/).
+
+SQLAlchemy - Python SQL toolkit and Object Relational Mapper that gives
+application developers full power of and flexibility of SQL while interacting
+with python objects. (http://www.sqlalchemy.org/).
+
+Carolina CloudApps - a web application development platform provided by UNC's
+Information Technology Services and powered by Red Hat's Openshift Enterprise
+infrastructure (http://cloudapps.unc.edu/, https://www.openshift.com/).
+
+
+USER GROUPS AND USE CASES
+
+Tabs seeks to satisfy two distinct user groups, the researcher and their
+supervisor.  Each term is defined as follows: the researcher is any person
+tasked with interacting with a related sample, in any way, at any stage of
+processing.  Typically, this includes laboratory technicians, graduate students,
+post docs, or other vested person of interest.  Supervisory roles are
+individuals guiding the project.  These individuals typically are not ingesting
+information to the system, but are interested in retrieving the information in
+various ways.  Typical supervisors are professors, project managers, or in some
+cases, graduate students or post docs. 
+
+When a researcher would like to add a sample to be tracked, they must first have
+an appropriate project to associate the sample to.  Once a project has been
+created, or if it already exists, the researcher can now add the sample by
+selecting 'add new sample' on the administration page (for now) and filling out
+the required form.  
+
+To view a detailed description of the sample, a user can select the sample from
+the tracker page, if it has been recently updated.  Otherwise, the researcher
+can find the sample after selecting the more option related to samples.  Samples
+can also be found via the appropriate project as projects list their related
+samples.  Selecting the appropriate sample, takes the user to the sample's page.
+Here all data related to the sample will be displayed to the user.
+
+
+FUNCTIONAL REQUIREMENTS
+
+Users must be able to input data and relate the data to higher levels of
+organization.  For example, when processing an informatics pipeline, the user
+must be able to enter the required information related to data processing, but
+also must be able to associate this process with a specific sample. Well placed
+web forms will provide the user with these capabilities.
+
+The data will be stored using a Structured Query Language database.  The
+specific database is not of importance, as the object relational mapper
+SQLAlchemy abstracts the specific instance details.  
+
+
+NON-FUNCTIONAL REQUIREMENTS
+
+The aesthetic design of the web application must be clean and relatively modern.
+It shall be organized initially based on logical conclusions related to the data
+model.  
