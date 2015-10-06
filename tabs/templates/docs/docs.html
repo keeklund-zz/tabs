@@ -2,9 +2,11 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <div class=docs>
-  <h1>Documentation Listing</h1>
-  {% for datum in data %}
-  <p><a href="{{ datum }}">{{ datum }}</a></p>
-  {% endfor %}
+  <h1>{{ doc }}</h1>
+  {% if data %}
+  <pre>{{ data }}</pre>
+  {% else %}
+  <pre>Documentation coming</pre>
+  {% endif %}
 </div>
 {% endblock %}
