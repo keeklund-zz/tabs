@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from tabs.database import Projects, Samples
+from tabs.database import Projects, Samples, Sequencing
 
 mod = Blueprint('tracker', __name__, url_prefix='/tracker')
 
@@ -34,7 +34,22 @@ def samples(id=None):
         samples = Samples.query.order_by(Samples.timestamp.desc()).all()
     else:
         samples = Samples.query.get(id)
+
+    sequencing = None
+    if not isinstance(samples, list):
+        sequencing = Sequencing.query.filter(Sequencing.sample_id==samples.id).all()
     return render_template('tracker/layout.html',
                            data_type='samples',
-                           data=samples)
+                           data=samples,
+                           subdata_type='sequencing',
+                           subdata=sequencing)
 
+@mod.route('/sequencing/')
+@mod.route('/sequencing/<int:id>')
+def sequencing(id=None):
+    if not id:
+        # group by type or sequencing methodology?
+        sequencing = Sequencing.query.join(Samples).group_by(Sequencing.name, Samples.name).all()
+        for seq in sequencing:
+            print seq.name, seq.sample.name
+    return render_template('tracker/layout.html')

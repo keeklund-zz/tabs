@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, redirect, render_template, request
 from sqlalchemy.exc import IntegrityError
 from tabs import db
-from tabs.database import News, Projects, Samples, Updates, Users
+from tabs.database import News, Projects, Samples, Sequencing, Updates, Users
 from tabs.forms import NewsForm, ProjectForm, SampleForm, SequencingForm
 from tabs.forms import UpdateForm, UserForm
 
@@ -65,6 +65,7 @@ def new_project():
 @mod.route('/sample', methods=['GET', 'POST'])
 def new_sample():
     form = SampleForm()
+    project_list = Projects.query.all()
     if form.validate_on_submit():
         project = Projects.query.filter_by(name=form.project.data).first()
         if project:
@@ -72,21 +73,31 @@ def new_sample():
             db.session.add(sample)
             db.session.commit()
             flash("New Sample: '%s' - added successfully!" % form.name.data)
-        flash("New Sample: '%s' - not submitted. Invalid project" % \
-                form.name.data)
+        elif not project:
+            flash("New Sample: '%s' - not submitted. Invalid project" % \
+                  form.name.data)
         return redirect('/tracker/samples')
+    elif not project_list:
+        flash("Unable to create sample without a project!  Please add project.")
+        return redirect('/new/project')
     return render_template('forms/sample.html',
-            title='new sample',
-            form=form)
+                           title='new sample',
+                           form=form,
+                           project_list=project_list)
 
-@mod.route('/sample/<int:id>/sequencing', methods=['GET', 'POST'])
-def new_sequencing(id):
+@mod.route('/sequencing', methods=['GET', 'POST'])
+def new_sequencing():
     form = SequencingForm()
-    sample = Samples.query.get(id)
+    samples = Samples.query.all()
     if form.validate_on_submit():
-        pass
+        sample = Samples.query.filter_by(id=form.sample.data).first()
+        sequencing = Sequencing(form.name.data, sample)
+        db.session.add(sequencing)
+        db.session.commit()
+        flash("New Sequencing Method: '%s' add successfully to '%s'!" % \
+              (form.name.data, sample.name))
+        return redirect('/tracker/samples/%s' % str(sample.id))
     return render_template('forms/sequencing.html',
-            title='new sequencing',
-            form=form,
-            sample=sample)
-    # project? Filter by project, get sample list?
+                           title='new sequencing',
+                           form=form,
+                           samples=samples)
