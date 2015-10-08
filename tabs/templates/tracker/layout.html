@@ -16,7 +16,7 @@
   {% elif data and data is not sequence %}
   <p><a href="{{ data.id }}">{{ data.name }}</a></p>
   <h2>{{ subdata_type }}</h2>
-  {% if subdata is sequence %}
+  {% if subdata and subdata is sequence %}
   {% for subdatum in subdata %}
   <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a> | {{ subdatum.timestamp }}</p>
   {% endfor %}
