@@ -8,7 +8,6 @@
     {{ message }}
   </div>
   {% endfor %}
-
   {% if data and data is sequence %}
   {% for datum in data %}
   <p><a href="{{ datum.id }}">{{ datum.name }}</a></p>
@@ -20,12 +19,11 @@
   {% for subdatum in subdata %}
   <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a> | {{ subdatum.timestamp }}</p>
   {% endfor %}
-  {% else %}
+  {% elif subdata is not none %}
   <p>no recent items</p>
   {% endif %}
   {% else %}
   <p>no recent items</p>
   {% endif %}
-
 </div>
 {% endblock %}

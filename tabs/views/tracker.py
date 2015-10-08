@@ -109,9 +109,6 @@ def processing(id=None):
         processing = Processing.query.all()
     else:
         processing = Processing.query.get(id)
-
-    
-
     return render_template('tracker/layout.html',
                            data_type='processing',
                            data=processing)
