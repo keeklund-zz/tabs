@@ -6,7 +6,7 @@
 
 # if this is the initial install, copy DB from repo to persistent storage
 # directory
-if [ ! -f ${OPENSHIFT_DATA_DIR}database.db ]; then
+if [ ! -f ${OPENSHIFT_DATA_DIR}/tabs.db ]; then
   cp -rf ${OPENSHIFT_REPO_DIR}/tabs.db ${OPENSHIFT_DATA_DIR}/tabs.db 2>/dev/null
 fi
 
