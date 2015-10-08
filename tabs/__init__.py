@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 from flask.ext.login import LoginManager
-from flask.ext.restful import Api
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.json import JSONEncoder
 
