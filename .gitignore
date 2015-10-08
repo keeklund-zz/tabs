@@ -5,4 +5,5 @@
 *.swp
 
 venv
+virtenv
 db_repository
