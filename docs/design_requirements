@@ -5,15 +5,22 @@ INTRODUCTION
 
 Tracking next generation sequencing data and its related meta-data can be an
 onerous task.  Admittedly, many researchers have their own way of organizing and
-recording this critical information.  However, as labs may have encountered in
-the past, meta-data when not recorded in a similar fashion, may lead to
-confusing, incorrect, or results which cannot be reproduced.  To avoid conflict
-and meta-data collisions, our solution, tabs, is intended to be a minimal
-Laboratory Information Management System (LIMS).  It strives to be a
-straight-forward and simplified way of recorded the necessary information for a
-computational lab such has Terry Furey's, at UNC Chapel Hill, by clearly
+recording this critical information.  Their methods undoubtedly work well within
+a specific scope.  Problems arise, unsurprisingly, at the interface between
+stages of a typical next generation sequencing samples life span.  As labs may
+have encountered in the past, combining this information requires extensive
+cleaning due to variations in collection or recording methods, or researcher
+standards. These discrepancies may lead to confusing, incorrect, or results
+which cannot be reproduced.  
+
+To minimize error and meta-data collisions, our solution, tabs, is a minimal
+Laboratory Information Management System (LIMS) striving to be a
+straight-forward and simplified way of recording the necessary information for a
+computational lab such has Terry Furey's, at UNC Chapel Hill.  By clearly
 defining stages at which data can and should be collected, and requiring
-specific data at appropriate stages of processing. 
+specific data points at appropriate times, many previous meta-data issues can be
+avoided completely.  Additional benefit comes from allowing all researchers
+involved in the sample's progression to view and input required data.
 
 The documentation presented here and in the following collection will provide
 the necessary information for all types of users invested in this system.  This
@@ -27,15 +34,14 @@ PURPOSE
 
 The purpose of this document collection is to serve as a guide to developers and
 all users responsible for the engineering and usage of the Tabs project.  The
-information presented here, will give developers all the necessary information
-to create, maintain, and test the project's software.  The information presented
+information presented here, will give developers all the necessary guidance to
+create, maintain, and test the project's software.  The information presented
 for the users will give them all the necessary knowledge to use the system
 effectively, in their appropriate role.
 
 Specifically, this document strives to document and specify both the software's
-design and requirements.  Sub-directories will provide a more detailed approach
-to documentation and specification while documents in this directory provide a
-higher-level approach.
+design and requirements at a relatively high level.  Sub-directories will
+provide a more detailed approach to documentation and specification.
 
 
 SYSTEM OVERVIEW
@@ -48,15 +54,17 @@ Furey lab's projects including institutions other than UNC, a authentication
 method other than ONYEN will be required.
 
 This collaborative nature allows for different institutions to operate on the
-same sample data.  For example, one group initialize a sample and associate
+same sample data.  For example, one group can initialize a sample and associate
 meta-data related to their operations.  A second group, may harvest material
 intended for various assays, which will be entered and referenced to the
 original sample.  After sequencing, the Furey group will record all informatics
-related meta-data related to the specific sample.  
+related meta-data related to the specific sample.   
 
 All information can be relayed to the researchers and supervisors via reporting
-mechanisms, and dashboard views.  In addition, an API exists to facilitate
-programmatic data entry and retrieval should an individual be so inclined.
+mechanisms, and dashboard views.  Projects and samples have pages devoted to
+them allowing a user to view detailed information related to a sample's
+attributes.  In addition, an API exists to facilitate programmatic data entry
+and retrieval should an individual be so inclined.
 
 
 REFERENCES
@@ -76,17 +84,19 @@ Information Technology Services and powered by Red Hat's Openshift Enterprise
 infrastructure (http://cloudapps.unc.edu/, https://www.openshift.com/).
 
 
-USER GROUPS AND USE CASES
+DEFINITIONS
 
-Tabs seeks to satisfy two distinct user groups, the researcher and their
-supervisor.  Each term is defined as follows: the researcher is any person
-tasked with interacting with a related sample, in any way, at any stage of
-processing.  Typically, this includes laboratory technicians, graduate students,
-post docs, or other vested person of interest.  Supervisory roles are
-individuals guiding the project.  These individuals typically are not ingesting
-information to the system, but are interested in retrieving the information in
-various ways.  Typical supervisors are professors, project managers, or in some
-cases, graduate students or post docs. 
+A researcher is any person tasked with interacting with a related sample, in any
+way, at any stage of processing.  Typically, this includes laboratory
+technicians, graduate students, post docs, or other vested person of interest.  
+
+A supervisor is an individual guiding the project.  These individuals typically
+are not ingesting information to the system, but are interested in retrieving
+the information in various ways.  Typical supervisors are professors, project
+managers, or in some cases, graduate students or post docs. 
+
+
+USE CASES 
 
 When a researcher would like to add a sample to be tracked, they must first have
 an appropriate project to associate the sample to.  Once a project has been

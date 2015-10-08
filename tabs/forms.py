@@ -45,4 +45,16 @@ class SequencingForm(Form):
                 ('dnase', 'DNASeq'),
                 ('rna', 'RNASeq'),],
             validators=[DataRequired()])
+    preparation = StringField('preparation', validators=[DataRequired()])
+
+
+class PreparationForm(Form):
+    name = StringField('name', validators=[DataRequired()])
     sample = StringField('sample', validators=[DataRequired()])
+
+class ProcessingForm(Form):
+    name = StringField('name', validators=[DataRequired()])
+    host = StringField('host', validators=[DataRequired()])
+    cmd = StringField('cmd', validators=[DataRequired()])
+    sequencing = StringField('sequencing', validators=[DataRequired()])
+    

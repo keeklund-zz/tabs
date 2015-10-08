@@ -17,7 +17,7 @@
   <p><a href="{{ data.id }}">{{ data.name }}</a></p>
   <h2>{{ subdata_type }}</h2>
   {% for subdatum in subdata %}
-  <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a></p>
+  <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a> | {{ subdatum.timestamp }}</p>
   {% endfor %}
   {% else %}
     <p>no recent items</p>

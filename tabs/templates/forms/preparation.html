@@ -2,17 +2,17 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <div class=forms>
-  <h1>new sequencing</h1>
-  <form action="" method="post" name="new_project">
+  <h1>new preparation</h1>
+  <form action="" method="post" name="new_preparation">
     {{ form.hidden_tag() }}
-    <p><label>Preparation: </label>
-      <select id="preparation" name="preparation">
+    <p><label>Sample: </label>
+      <select id="sample" name="sample">
 <!--	<option value="" disabled="disabled" selected="selected">Please select your sample</option> -->
-	{% for preparation in preparations %}
-	<option value="{{ preparation.id }}">{{ preparation.sample.name }} | {{ preparation.name }}</option>
+	{% for sample in samples %}
+	<option value="{{ sample.id }}">{{ sample.project.name }} | {{ sample.name }}</option>
 	{% endfor %}
       </select>
-    <p>Type: {{ form.name }}</p>
+    <p>Name: {{ form.name }}</p>
     <p><input type="submit" value="post"></p>
   </form>
 </div>

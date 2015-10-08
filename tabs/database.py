@@ -125,7 +125,7 @@ class Samples(SamplesBase, db.Model):
     name = db.Column(db.String(140))
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     project = db.relationship('Projects', 
-            backref = db.backref('samples', lazy = 'dynamic'))
+            backref = db.backref('projects', lazy = 'dynamic'))
     timestamp = db.Column(db.DateTime)
 
     def __init__(self, name, project):
@@ -134,11 +134,11 @@ class Samples(SamplesBase, db.Model):
         self.timestamp = datetime.now()
 
 
-class SequencingBase(Base):
+class PreparationBase(Base):
     __json_hidden__ = []
 
 
-class Sequencing(SequencingBase, db.Model):
+class Preparation(PreparationBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(80))
     timestamp = db.Column(db.DateTime)
@@ -152,3 +152,49 @@ class Sequencing(SequencingBase, db.Model):
         if not timestamp:
             timestamp = datetime.now()
         self.timestamp = timestamp
+
+
+class SequencingBase(Base):
+    __json_hidden__ = []
+
+
+class Sequencing(SequencingBase, db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(80))
+    timestamp = db.Column(db.DateTime)
+    preparation_id = db.Column(db.Integer, db.ForeignKey('preparation.id'))
+    preparation = db.relationship('Preparation', 
+            backref = db.backref('preparation', lazy = 'dynamic'))
+
+    def __init__(self, name, preparation, timestamp=None):
+        self.name = name
+        self.preparation = preparation
+        if not timestamp:
+            timestamp = datetime.now()
+        self.timestamp = timestamp
+
+
+class ProcessingBase(Base):
+    __json_hidden__ = []
+
+
+class Processing(ProcessingBase, db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(80))
+    host = db.Column(db.String(80))
+    cmd = db.Column(db.String(1024))
+    timestamp = db.Column(db.DateTime)
+    sequencing_id = db.Column(db.Integer, db.ForeignKey('sequencing.id'))
+    sequencing = db.relationship('Sequencing', 
+            backref = db.backref('sequencing', lazy = 'dynamic'))
+
+    def __init__(self, name, host, cmd, sequencing, timestamp=None):
+        self.name = name
+        self.host = host
+        self.cmd = cmd
+        self.sequencing = sequencing
+        if not timestamp:
+            timestamp = datetime.now()
+        self.timestamp = timestamp
+
+
