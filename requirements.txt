@@ -1,34 +1,34 @@
-aniso8601 (1.0.0)
-decorator (4.0.4)
-Flask (0.10.1)
-Flask-Login (0.3.2)
-flask-marshmallow (0.6.2)
-Flask-RESTful (0.3.4)
-Flask-SQLAlchemy (2.0)
-Flask-Triangle (0.5.4)
-Flask-WTF (0.12)
-functools32 (3.2.3.post2)
-infinity (1.3)
-intervals (0.3.1)
-itsdangerous (0.24)
-Jinja2 (2.8)
-jsonschema (2.5.1)
-MarkupSafe (0.23)
-marshmallow (2.1.1)
-marshmallow-sqlalchemy (0.6.0)
-pbr (1.8.1)
-pip (7.1.2)
-pytz (2015.6)
-setuptools (18.2)
-six (1.10.0)
-SQLAlchemy (1.0.8)
-sqlalchemy-migrate (0.10.0)
-SQLAlchemy-Utils (0.31.0)
-sqlparse (0.1.16)
-Tempita (0.5.2)
-validators (0.8)
-Werkzeug (0.10.4)
-wheel (0.24.0)
-WTForms (2.0.2)
-WTForms-Alchemy (0.13.3)
-WTForms-Components (0.9.8)
+aniso8601
+decorator
+Flask
+Flask-Login
+flask-marshmallow
+Flask-RESTful
+Flask-SQLAlchemy
+Flask-Triangle
+Flask-WTF
+functools32
+infinity
+intervals
+itsdangerous
+Jinja2
+jsonschema
+MarkupSafe
+marshmallow
+marshmallow-sqlalchemy
+pbr
+pip
+pytz
+setuptools
+six
+SQLAlchemy
+sqlalchemy-migrate
+SQLAlchemy-Utils
+sqlparse
+Tempita
+validators
+Werkzeug
+wheel
+WTForms
+WTForms-Alchemy
+WTForms-Components
