@@ -17,9 +17,9 @@ def not_found(error):
 
 # does this HAVE to be this way?
 # separate app into app.py? then import here - then all imports at top?
-from tabs.api import v1 as api
+#from tabs.api import v1 as api
 from tabs.views import docs, general, forms, tracker
-app.register_blueprint(api.mod)
+#app.register_blueprint(api.mod)
 app.register_blueprint(docs.mod)
 app.register_blueprint(general.mod)
 app.register_blueprint(forms.mod)
