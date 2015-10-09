@@ -140,7 +140,17 @@ class PreparationBase(Base):
 
 class Preparation(PreparationBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(80))
+    name = db.Column(db.String(64))
+    antibody = db.Column(db.String(64))
+    cell_line = db.Column(db.String(16))
+    bioanalyzer_shearing = db.Column(db.String(1024))
+    library_yield = db.Column(db.Float)
+    adaptor = db.Column(db.String(16))
+    bioanalyzer_library = db.Column(db.String(1024))
+    amount_submitted = db.Column(db.Integer)
+    concentration = db.Column(db.Float)
+    fedex_tracking_number = db.Column(db.String(64))
+    comments = db.Column(db.String(2048))
     timestamp = db.Column(db.DateTime)
     sample_id = db.Column(db.Integer, db.ForeignKey('samples.id'))
     sample = db.relationship('Samples', 

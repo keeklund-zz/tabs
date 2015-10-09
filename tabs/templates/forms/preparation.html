@@ -5,15 +5,27 @@
   <h1>new preparation</h1>
   <form action="" method="post" name="new_preparation">
     {{ form.hidden_tag() }}
-    <p><label>Sample: </label>
-      <select id="sample" name="sample">
-<!--	<option value="" disabled="disabled" selected="selected">Please select your sample</option> -->
-	{% for sample in samples %}
-	<option value="{{ sample.id }}">{{ sample.project.name }} | {{ sample.name }}</option>
-	{% endfor %}
-      </select>
-    <p>Name: {{ form.name }}</p>
-    <p><input type="submit" value="post"></p>
+    <table>
+      <tr>
+	<td><label>Sample: </label></td>
+	<td>
+	  <select id="sample" name="sample">
+	    {% for sample in samples %}
+	    <option value="{{ sample.id }}">{{ sample.project.name }} | {{ sample.name }}</option>
+	    {% endfor %}
+	  </select>
+	</td>
+      </tr>
+      {% for field in form if field.id != 'csrf_token'and field.id != 'sample' %}
+      <tr>
+	<td>{{field.label}}:</td>
+	<td>{{field}}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+	<td><input type="submit" value="post"></td>
+      </tr>
+    </table>
   </form>
 </div>
 {% endblock %}

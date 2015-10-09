@@ -17,8 +17,8 @@ def new_news():
         db.session.commit()
         flash("News: '%s' - posted successfully!" % form.title.data)
         return redirect('/news')
-    return render_template('forms/news.html',
-                           title='new news',
+    return render_template('forms/general.html',
+                           form_type='news',
                            form=form)
 
 @mod.route('/update', methods=['GET', 'POST'])
@@ -30,8 +30,8 @@ def new_update():
         db.session.commit()
         flash("Update: '%s' - posted successfully!" % form.title.data)
         return redirect('/updates')
-    return render_template('forms/update.html',
-                           title='new updates',
+    return render_template('forms/general.html',
+                           form_type='updates',
                            form=form)
 
 @mod.route('/user', methods=['GET', 'POST'])
@@ -46,9 +46,9 @@ def new_user():
         except IntegrityError:
             flash("New user: '%s' - already exists!" % form.name.data)
         return redirect('/') # CORRECT LOCATION?
-    return render_template('forms/user.html',
-            title='new user',
-            form=form)
+    return render_template('forms/general.html',
+                           form_type='user',
+                           form=form)
     
 @mod.route('/project', methods=['GET', 'POST'])
 def new_project():
@@ -59,8 +59,8 @@ def new_project():
         db.session.commit()
         flash("New Project: '%s' - added successfully!" % form.name.data)
         return redirect('/tracker/projects') 
-    return render_template('forms/project.html',
-                           title='new project',
+    return render_template('forms/general.html',
+                           form_type='project',
                            form=form,)
 
 @mod.route('/sample', methods=['GET', 'POST'])
@@ -114,7 +114,7 @@ def new_preparation():
         db.session.commit()
         flash("New Preparation: '%s' add successfully to '%s'!" % \
               (form.name.data, sample.name))
-        return redirect('/tracker/preparation/%s' % str(sample.id))
+        return redirect('/tracker/preparation/%s' % str(preparation.id))
     return render_template('forms/preparation.html',
                            title='new preparation',
                            form=form,
@@ -135,7 +135,7 @@ def new_processing():
         db.session.commit()
         flash("New Processing: '%s' add successfully to '%s'!" % \
               (form.name.data, sequencing.name))
-        return redirect('/tracker/processing/%s' % str(sequencing.id))
+        return redirect('/tracker/processing/%s' % str(processing.id))
     return render_template('forms/processing.html',
                            title='new processing',
                            form=form,
