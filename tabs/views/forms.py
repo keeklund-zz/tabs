@@ -81,10 +81,11 @@ def new_sample():
     elif not project_list:
         flash("Unable to create sample without a project!  Please add project.")
         return redirect('/new/project')
-    return render_template('forms/sample.html',
-                           title='new sample',
+    return render_template('forms/general.html',
+                           form_type='sample',
                            form=form,
-                           project_list=project_list)
+                           dep_type='project',
+                           dep_data=project_list)
 
 @mod.route('/sequencing', methods=['GET', 'POST'])
 def new_sequencing():
@@ -99,9 +100,10 @@ def new_sequencing():
               (form.name.data, preparation.name))
         return redirect('/tracker/sequencing/%s' % str(sequencing.id))
     return render_template('forms/sequencing.html',
-                           title='new sequencing',
+                           form_type='sequencing',
                            form=form,
-                           preparations=preparations)
+                           dep_type='preparation',
+                           dep_data=preparations)
 
 @mod.route('/preparation', methods=['GET', 'POST'])
 def new_preparation():
@@ -115,10 +117,11 @@ def new_preparation():
         flash("New Preparation: '%s' add successfully to '%s'!" % \
               (form.name.data, sample.name))
         return redirect('/tracker/preparation/%s' % str(preparation.id))
-    return render_template('forms/preparation.html',
-                           title='new preparation',
+    return render_template('forms/general.html',
+                           form_type='preparation',
                            form=form,
-                           samples=samples)
+                           dep_type='samples',
+                           dep_data=samples)
 
 @mod.route('/processing', methods=['GET', 'POST'])
 def new_processing():
@@ -136,7 +139,8 @@ def new_processing():
         flash("New Processing: '%s' add successfully to '%s'!" % \
               (form.name.data, sequencing.name))
         return redirect('/tracker/processing/%s' % str(processing.id))
-    return render_template('forms/processing.html',
-                           title='new processing',
+    return render_template('forms/general.html',
+                           form_type='processing',
                            form=form,
-                           sequencing=sequencing)
+                           dep_type='sequencing',
+                           dep_data=sequencing)

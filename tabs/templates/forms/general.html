@@ -6,7 +6,21 @@
   <form action="" method="post" name="new_{{ form_type }}">
     {{ form.hidden_tag() }}
     <table>
-      {% for field in form if field.id != 'csrf_token' %}
+      {% if dep_data %}
+      <tr>
+	<td>
+	  <label>{{ dep_type | capitalize }}:</label>
+	</td>
+	<td>
+	  <select id="{{ dep_type }}" name="{{ dep_type }}">
+	    {% for option in dep_data %}
+	    <option value="{{ option.name }}" >{{ option.name }}</option>
+	    {% endfor %}
+	  </select>
+	</td>
+      </tr>
+      {% endif %}
+      {% for field in form if field.id != 'csrf_token' and field.id != dep_type %}
       <tr>
 	<td>{{ field.label }}:</td>
 	<td>{{ field }}</td>
@@ -15,7 +29,6 @@
       <tr>
 	<td><input type="submit" value="post"></td>
       </tr>
-    </table>
   </form>
 </div>
 {% endblock %}

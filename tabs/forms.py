@@ -40,13 +40,13 @@ class SampleForm(Form):
 
 
 class SequencingForm(Form):
-    name = SelectField('type', 
+    name = SelectField('Type', 
             choices=[('atac','ATACSeq'), 
                 ('chip', 'ChipSeq'),
                 ('dnase', 'DNASeq'),
                 ('rna', 'RNASeq'),],
             validators=[DataRequired()])
-    preparation = StringField('preparation', validators=[DataRequired()])
+    preparation = StringField('Preparation', validators=[DataRequired()])
 
 
 class PreparationForm(Form):
@@ -64,9 +64,9 @@ class PreparationForm(Form):
     sample = StringField('Sample', validators=[DataRequired()])
 
 class ProcessingForm(Form):
-    name = StringField('name', validators=[DataRequired()])
-    host = StringField('host', validators=[DataRequired()])
-    cmd = StringField('cmd', validators=[DataRequired()])
-    output_dir = StringField('cmd', validators=[DataRequired()])
-    sequencing = StringField('sequencing', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired()])
+    host = StringField('Host', validators=[DataRequired()])
+    cmd = StringField('Command', validators=[DataRequired()])
+    output_dir = StringField('Output Directory', validators=[DataRequired()])
+    sequencing = StringField('Sequencing', validators=[DataRequired()])
     
