@@ -126,7 +126,11 @@ def new_processing():
     sequencing = Sequencing.query.all()
     if form.validate_on_submit():
         sequencing = Sequencing.query.filter_by(id=form.sequencing.data).first()
-        processing = Processing(form.name.data, form.host.data, form.cmd.data, sequencing)
+        processing = Processing(form.name.data,
+                                form.host.data,
+                                form.cmd.data,
+                                form.output_dir.data,
+                                sequencing)
         db.session.add(processing)
         db.session.commit()
         flash("New Processing: '%s' add successfully to '%s'!" % \

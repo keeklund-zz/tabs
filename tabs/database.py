@@ -183,15 +183,17 @@ class Processing(ProcessingBase, db.Model):
     name = db.Column(db.String(80))
     host = db.Column(db.String(80))
     cmd = db.Column(db.String(1024))
+    output_dir = db.Column(db.String(1024))
     timestamp = db.Column(db.DateTime)
     sequencing_id = db.Column(db.Integer, db.ForeignKey('sequencing.id'))
     sequencing = db.relationship('Sequencing', 
             backref = db.backref('sequencing', lazy = 'dynamic'))
 
-    def __init__(self, name, host, cmd, sequencing, timestamp=None):
+    def __init__(self, name, host, cmd, output_dir, sequencing, timestamp=None):
         self.name = name
         self.host = host
         self.cmd = cmd
+        self.output_dir = output_dir
         self.sequencing = sequencing
         if not timestamp:
             timestamp = datetime.now()

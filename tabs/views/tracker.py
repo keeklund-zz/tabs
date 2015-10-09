@@ -17,7 +17,8 @@ def index():
 def projects(id=None):
     projects, samples = None, None
     if not id:
-        projects = Projects.query.order_by(Projects.timestamp.desc()).all()
+        query = Projects.query.order_by(Projects.timestamp.desc()).all()
+        projects = [i.serialize() for i in query]
     else:
         try:
             projects = Projects.query.get(id)
@@ -111,4 +112,6 @@ def processing(id=None):
         processing = Processing.query.get(id)
     return render_template('tracker/layout.html',
                            data_type='processing',
-                           data=processing)
+                           data=processing,
+                           subdata_type=None,
+                           subdata=None)

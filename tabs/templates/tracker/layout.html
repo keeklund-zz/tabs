@@ -14,13 +14,15 @@
   {% endfor %}
   {% elif data and data is not sequence %}
   <p><a href="{{ data.id }}">{{ data.name }}</a></p>
+  {% if subdata_type %}
   <h2>{{ subdata_type }}</h2>
   {% if subdata and subdata is sequence %}
   {% for subdatum in subdata %}
   <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a> | {{ subdatum.timestamp }}</p>
   {% endfor %}
-  {% elif subdata is not none %}
+  {% else %}
   <p>no recent items</p>
+  {% endif %}
   {% endif %}
   {% else %}
   <p>no recent items</p>
