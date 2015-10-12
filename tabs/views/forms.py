@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, render_template, request
+from flask import abort, Blueprint, flash, redirect, render_template, request
 from sqlalchemy.exc import IntegrityError
 from tabs import db
 from tabs.database import News, Preparation, Processing, Projects, Samples
@@ -67,6 +67,9 @@ def new_project():
 def new_sample():
     form = SampleForm()
     project_list = Projects.query.all()
+    if not project_list:
+        flash("Please create a project to continue.")
+        abort(400)
     if form.validate_on_submit():
         project = Projects.query.filter_by(name=form.project.data).first()
         if project:
@@ -91,6 +94,9 @@ def new_sample():
 def new_sequencing():
     form = SequencingForm()
     preparations = Preparation.query.all()
+    if not preparations:
+        flash("Please enter sample preparation data first")
+        abort(400)
     if form.validate_on_submit():
         preparation = Preparation.query.filter_by(id=form.preparation.data).first()
         sequencing = Sequencing(form.name.data, preparation)
@@ -109,6 +115,9 @@ def new_sequencing():
 def new_preparation():
     form = PreparationForm()
     samples = Samples.query.all()
+    if not samples:
+        flash("Please enter sample data first")
+        abort(400)
     if form.validate_on_submit():
         sample = Samples.query.filter_by(id=form.sample.data).first()
         preparation = Preparation(form.name.data, sample)
@@ -127,6 +136,9 @@ def new_preparation():
 def new_processing():
     form = ProcessingForm()
     sequencing = Sequencing.query.all()
+    if not sequencing:
+        flash("Cannot enter processing data without sequencing.")
+        abort(400)
     if form.validate_on_submit():
         sequencing = Sequencing.query.filter_by(id=form.sequencing.data).first()
         processing = Processing(form.name.data,

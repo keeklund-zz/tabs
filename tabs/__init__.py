@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import flash, Flask, render_template
 from flask.ext.login import LoginManager
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.json import JSONEncoder
@@ -11,9 +11,15 @@ db = SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 
+@app.errorhandler(400)
+def bad_request(error):
+    return render_template('errors/errors.html', error_number=error)
+                           
+
 @app.errorhandler(404)
-def not_found(error):
-    return render_template('404.html'), 404 
+def page_not_found(error):
+    flash("This page doesn't exist")
+    return render_template('errors/errors.html', error_number=error)
 
 # does this HAVE to be this way?
 # separate app into app.py? then import here - then all imports at top?
