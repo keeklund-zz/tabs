@@ -99,7 +99,7 @@ def new_sequencing():
         flash("New Sequencing Method: '%s' add successfully to '%s'!" % \
               (form.name.data, preparation.name))
         return redirect('/tracker/sequencing/%s' % str(sequencing.id))
-    return render_template('forms/sequencing.html',
+    return render_template('forms/general.html',
                            form_type='sequencing',
                            form=form,
                            dep_type='preparation',
