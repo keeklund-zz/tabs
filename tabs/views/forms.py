@@ -73,7 +73,7 @@ def new_sample():
     if form.validate_on_submit():
         project = Projects.query.filter_by(name=form.project.data).first()
         if project:
-            sample = Samples(form.name.data, project)
+            sample = Samples(form.data, project)
             db.session.add(sample)
             db.session.commit()
             flash("New Sample: '%s' - added successfully!" % form.name.data)
@@ -98,7 +98,7 @@ def new_sequencing():
         flash("Please enter sample preparation data first")
         abort(400)
     if form.validate_on_submit():
-        preparation = Preparation.query.filter_by(id=form.preparation.data).first()
+        preparation = Preparation.query.filter_by(name=form.preparation.data).first()
         sequencing = Sequencing(form.name.data, preparation)
         db.session.add(sequencing)
         db.session.commit()
@@ -119,8 +119,8 @@ def new_preparation():
         flash("Please enter sample data first")
         abort(400)
     if form.validate_on_submit():
-        sample = Samples.query.filter_by(id=form.sample.data).first()
-        preparation = Preparation(form.name.data, sample)
+        sample = Samples.query.filter_by(name=form.sample.data).first()
+        preparation = Preparation(form.data, sample)
         db.session.add(preparation)
         db.session.commit()
         flash("New Preparation: '%s' add successfully to '%s'!" % \
@@ -129,7 +129,7 @@ def new_preparation():
     return render_template('forms/general.html',
                            form_type='preparation',
                            form=form,
-                           dep_type='samples',
+                           dep_type='sample',
                            dep_data=samples)
 
 @mod.route('/processing', methods=['GET', 'POST'])
@@ -140,7 +140,7 @@ def new_processing():
         flash("Cannot enter processing data without sequencing.")
         abort(400)
     if form.validate_on_submit():
-        sequencing = Sequencing.query.filter_by(id=form.sequencing.data).first()
+        sequencing = Sequencing.query.filter_by(name=form.sequencing.data).first()
         processing = Processing(form.name.data,
                                 form.host.data,
                                 form.cmd.data,

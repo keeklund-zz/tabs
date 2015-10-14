@@ -123,13 +123,19 @@ class SamplesBase(Base):
 class Samples(SamplesBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(140))
+    strain = db.Column(db.String(16))
+    sex = db.Column(db.String(8))
+    exposure = db.Column(db.Integer)
+    date_sacrificed = db.Column(db.DateTime)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
     project = db.relationship('Projects', 
             backref = db.backref('projects', lazy = 'dynamic'))
     timestamp = db.Column(db.DateTime)
 
-    def __init__(self, name, project):
-        self.name = name
+    def __init__(self, form_data, project):
+        for key, value in form_data.items():
+            if key != 'project':
+                setattr(self, key, value)
         self.project = project
         self.timestamp = datetime.now()
 
@@ -156,8 +162,10 @@ class Preparation(PreparationBase, db.Model):
     sample = db.relationship('Samples', 
             backref = db.backref('samples', lazy = 'dynamic'))
 
-    def __init__(self, name, sample, timestamp=None):
-        self.name = name
+    def __init__(self, form_data, sample, timestamp=None):
+        for key, value in form_data.items():
+            if key != 'sample':
+                setattr(self, key, value)
         self.sample = sample
         if not timestamp:
             timestamp = datetime.now()

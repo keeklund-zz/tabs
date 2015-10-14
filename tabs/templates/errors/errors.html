@@ -1,9 +1,7 @@
 {% extends "base_layout.html" %}
 {% block title %}{{ error_number }}{% endblock %}
 {% block body %}
-<div class=error>
-  <h1>{{ error_number }}</h1>
-</div>
+<h1>{{ error_number }}</h1>
 {% for message in get_flashed_messages() %}
 <div class=flash>
   {{ message }}

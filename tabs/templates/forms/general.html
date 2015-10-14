@@ -24,11 +24,15 @@
       <tr>
 	<td>{{ field.label }}:</td>
 	<td>{{ field }}</td>
+	{% for error in field.errors if field.errors %}
+	<td>{{ error }}</td>
+	{% endfor %}
       </tr>
       {% endfor %}
       <tr>
 	<td><input type="submit" value="post"></td>
       </tr>
+    </table>
   </form>
 </div>
 {% endblock %}

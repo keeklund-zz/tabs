@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
-from wtforms import FloatField, IntegerField, SelectField, StringField
+from wtforms import DateField, FloatField, IntegerField, SelectField, StringField
 from wtforms import TextAreaField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, InputRequired
 from wtforms_alchemy import model_form_factory
 from tabs.database import Users
 
@@ -37,15 +37,25 @@ class ProjectForm(Form):
 class SampleForm(Form):
     name = StringField('Name', validators=[DataRequired()])
     project = StringField('Project', validators=[DataRequired()])
+    strain = SelectField('Strain',
+                         choices=[('cast', 'CAST'),
+                                  ('c57bl6', 'C57BL6'),],
+                         validators=[DataRequired()])
+    sex = SelectField('Sex',
+                      choices=[('male', 'Male'),
+                               ('female', 'Female'),],
+                      validators=[DataRequired()])
+    exposure = IntegerField('Exposure (ppm)', validators=[InputRequired()])
+    date_sacrificed = DateField('Date Sacrificed', format='%m/%d/%Y', validators=[DataRequired()])
 
 
 class SequencingForm(Form):
     name = SelectField('Type', 
-            choices=[('atac','ATACSeq'), 
-                ('chip', 'ChipSeq'),
-                ('dnase', 'DNASeq'),
-                ('rna', 'RNASeq'),],
-            validators=[DataRequired()])
+                       choices=[('atac','ATACSeq'), 
+                                ('chip', 'ChipSeq'),
+                                ('dnase', 'DNASeq'),
+                                ('rna', 'RNASeq'),],
+                    validators=[DataRequired()])
     preparation = StringField('Preparation', validators=[DataRequired()])
 
 
@@ -57,8 +67,9 @@ class PreparationForm(Form):
     library_yield = FloatField('Library Yield', validators=[DataRequired()])
     adaptor = StringField('Adaptor', validators=[DataRequired()])
     bioanalyzer_library = StringField('Bioanalyzer Library', validators=[DataRequired()])
-    amount_submitted = IntegerField('Amount Submitted', validators=[DataRequired()])
-    concentration = FloatField('Concentration', validators=[DataRequired()])
+    amount_submitted = IntegerField('Amount Submitted (ng)', validators=[DataRequired()])
+    num_pcr_cycles = IntegerField('Number of PCR Cycles', validators=[DataRequired()])
+    concentration = FloatField('Concentration (ng/ul)', validators=[DataRequired()])
     fedex_tracking_number = StringField('Fedex Tracking Number')
     comments = TextAreaField('Comments')
     sample = StringField('Sample', validators=[DataRequired()])
