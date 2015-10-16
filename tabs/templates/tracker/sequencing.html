@@ -1,0 +1,35 @@
+{% extends "base_layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+<div class={{ data_type }}>
+  <h1>{{ data_type }}</h1>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+    {{ message }}
+  </div>
+  {% endfor %}
+  {% if data and data is sequence %}
+  {% for datum in data %}
+  <p><a href="{{ datum.id }}">{{ datum.name }}</a></p>
+  {% endfor %}
+  {% elif data and data is not sequence %}
+  <table>
+    <tr><td>Name:</td><td><a href="{{ data.id }}">{{ data.name }}</a></td></tr>
+    <tr><td>Preparation:</td><td>{{ data.preparation.name }}</td></tr>
+    <tr><td>Timestamp:</td><td>{{ data.timestamp }}</td></tr>
+  </table>
+  {% if subdata_type %}
+  <h2>{{ subdata_type }}</h2>
+  {% if subdata and subdata is sequence %}
+  {% for subdatum in subdata %}
+  <p><a href="/tracker/{{ subdata_type }}/{{ subdatum.id }}">{{ subdatum.name }}</a> | {{ subdatum.timestamp }}</p>
+  {% endfor %}
+  {% else %}
+  <p>no recent items</p>
+  {% endif %}
+  {% endif %}
+  {% else %}
+  <p>no recent items</p>
+  {% endif %}
+</div>
+{% endblock %}

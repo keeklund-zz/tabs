@@ -17,15 +17,14 @@ def index():
 def projects(id=None):
     projects, samples = None, None
     if not id:
-        query = Projects.query.order_by(Projects.timestamp.desc()).all()
-        projects = [i.serialize() for i in query]
+        projects = Projects.query.order_by(Projects.timestamp.desc()).all()
     else:
         try:
             projects = Projects.query.get(id)
             samples = Samples.query.filter_by(project_id=projects.id).all()
         except:
             projects, samples = None, None
-    return render_template('tracker/layout.html',
+    return render_template('tracker/projects.html',
                            data_type='projects',
                            data=projects,
                            subdata_type='samples',
@@ -46,7 +45,7 @@ def samples(id=None):
                          filter(Preparation.sample_id==samples.id).all()
         except:
             samples, preparation = None, None
-    return render_template('tracker/layout.html',
+    return render_template('tracker/samples.html',
                            data_type='samples',
                            data=samples,
                            subdata_type='preparation',
@@ -76,7 +75,7 @@ def sequencing(id=None):
                          filter(Processing.sequencing_id==sequencing.id).all()
         except:
             sequencing, processing = None, None
-    return render_template('tracker/layout.html',
+    return render_template('tracker/sequencing.html',
                            data_type='sequencing',
                            data=sequencing,
                            subdata_type='processing',
@@ -97,7 +96,7 @@ def preparation(id=None):
                          filter(Sequencing.preparation_id==preparation.id).all()
         except:
             preparation, sequencing = None, None
-    return render_template('tracker/layout.html',
+    return render_template('tracker/preparation.html',
                            data_type='preparation',
                            data=preparation,
                            subdata_type='sequencing',
@@ -110,7 +109,7 @@ def processing(id=None):
         processing = Processing.query.all()
     else:
         processing = Processing.query.get(id)
-    return render_template('tracker/layout.html',
+    return render_template('tracker/processing.html',
                            data_type='processing',
                            data=processing,
                            subdata_type=None,
