@@ -1,16 +1,37 @@
 from flask import Blueprint, render_template
+import flask.ext.sqlalchemy
 from tabs.database import Preparation, Processing, Projects, Samples, Sequencing
 
 mod = Blueprint('tracker', __name__, url_prefix='/tracker')
 
+fs = flask.ext.sqlalchemy
+def r(model):
+    """Experimenting with creating some sort of recursive walking of db.
+
+    Will want to yield information during walk. Will need to evaluate or something.
+
+    """
+    for attr in dir(model):
+        attr_class = getattr(type(model), attr, None)
+        if isinstance(attr_class, fs.orm.attributes.InstrumentedAttribute):
+            if isinstance(getattr(model, attr, None), list):
+                print attr, getattr(model, attr, None)
+                for i in getattr(model, attr, None):
+                    r(i)
+
 @mod.route('/')
 def index():
-    projects = Projects.query.order_by(Projects.timestamp.desc()).limit(5).all()
-    samples = Samples.query.order_by(Samples.timestamp.desc()).limit(5).all() 
+    projects = Projects.query.order_by(Projects.timestamp.desc()).all()
+    counts = dict()
+    for project in projects:
+        r(project)
+        preps = []
+        for sample in project.samples:
+            preps.append(len(sample.preparations))
+        
     return render_template('tracker/index.html',
                            title='tracker home',
-                           projects=projects,
-                           samples=samples,)
+                           projects=projects,)
 
 @mod.route('/projects/')
 @mod.route('/projects/<int:id>')

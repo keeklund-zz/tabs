@@ -16,6 +16,7 @@
   <table>
     <tr><td>Name:</td><td><a href="{{ data.id }}">{{ data.name }}</a></td></tr>
     <tr><td>User Id:</td><td>{{ data.user_id }}</td></tr>
+    <tr><td>Number of Samples:</td><td>{{ data.samples|length }}</td></tr>
     <tr><td>Timestamp:</td><td>{{ data.timestamp }}</td></tr>
   </table>
   {% if subdata_type %}

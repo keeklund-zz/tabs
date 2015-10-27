@@ -19,7 +19,7 @@
     <tr><td>Sex:</td><td>{{ data.sex }}</td></tr>
     <tr><td>Exposure:</td><td>{{ data.exposure }}</td></tr>
     <tr><td>Date Sacrificed:</td><td>{{ data.date_sacrificed }}</td></tr>
-    <tr><td>Project:</td><td>{{ data.project.name }}</td></tr>
+    <tr><td>Number of preparations:</td><td>{{ data.preparations|length }}</td></tr>
     <tr><td>Timestamp:</td><td>{{ data.timestamp }}</td></tr>
   </table>
   {% if subdata_type %}

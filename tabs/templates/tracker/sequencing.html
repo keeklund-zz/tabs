@@ -15,7 +15,7 @@
   {% elif data and data is not sequence %}
   <table>
     <tr><td>Name:</td><td><a href="{{ data.id }}">{{ data.name }}</a></td></tr>
-    <tr><td>Preparation:</td><td>{{ data.preparation.name }}</td></tr>
+    <tr><td>Number of processing:</td><td>{{ data.processing|length }}</td></tr>
     <tr><td>Timestamp:</td><td>{{ data.timestamp }}</td></tr>
   </table>
   {% if subdata_type %}

@@ -5,22 +5,17 @@
   <h1>data tracker</h1>
   <h2>projects (<a href="{{ url_for('tracker.projects') }}">more</a>)</h2>
   {% if projects and projects is sequence %}
-    {% for project in projects %}
-    <p><a href="projects/{{ project.id }}">{{ project.name }}</a></p>
+  {% for project in projects %}
+  <p>
+    <a href="projects/{{ project.id }}">{{ project.name }}</a> |
+    total number of samples: {{ project.samples|length }} |
+    {{ project.timestamp }}
+  </p>
     {% endfor %}
   {% elif projects and projects is not sequence %}
     <p><a href="projects/{{ projects.id }}">{{ projects.name }}</a></p>
   {% else %}
     <p>no recent projects</p>
-  {% endif %}
-  
-  <h2>samples (<a href="{{ url_for('tracker.samples') }}">more</a>)</h2>
-  {% if samples %}
-  {% for sample in samples %}
-  <p><a href="samples/{{ sample.id }}">{{ sample.name }}</a></p>
-  {% endfor %}
-  {% else %}
-  <p>no recent samples</p>
   {% endif %}
 </div>
 {% endblock %}

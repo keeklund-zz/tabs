@@ -107,7 +107,7 @@ class Projects(ProjectsBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    # user = ?
+    samples = db.relationship('Samples', backref='projects', lazy='select')
     timestamp = db.Column(db.DateTime)
     
     def __init__(self, name, user_id):
@@ -128,15 +128,14 @@ class Samples(SamplesBase, db.Model):
     exposure = db.Column(db.Integer)
     date_sacrificed = db.Column(db.DateTime)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
-    project = db.relationship('Projects', 
-            backref = db.backref('projects', lazy = 'dynamic'))
+    preparations = db.relationship('Preparation', backref='samples', lazy='select')
     timestamp = db.Column(db.DateTime)
 
-    def __init__(self, form_data, project):
+    def __init__(self, form_data, project_id):
         for key, value in form_data.items():
             if key != 'project':
                 setattr(self, key, value)
-        self.project = project
+        self.project_id = project_id
         self.timestamp = datetime.now()
 
 
@@ -157,16 +156,16 @@ class Preparation(PreparationBase, db.Model):
     concentration = db.Column(db.Float)
     fedex_tracking_number = db.Column(db.String(64))
     comments = db.Column(db.String(2048))
-    timestamp = db.Column(db.DateTime)
     sample_id = db.Column(db.Integer, db.ForeignKey('samples.id'))
-    sample = db.relationship('Samples', 
-            backref = db.backref('samples', lazy = 'dynamic'))
+    sequencing = db.relationship('Sequencing',
+                                 backref='preparation', lazy='select')
+    timestamp = db.Column(db.DateTime)
 
-    def __init__(self, form_data, sample, timestamp=None):
+    def __init__(self, form_data, sample_id, timestamp=None):
         for key, value in form_data.items():
             if key != 'sample':
                 setattr(self, key, value)
-        self.sample = sample
+        self.sample_id = sample_id
         if not timestamp:
             timestamp = datetime.now()
         self.timestamp = timestamp
@@ -179,14 +178,14 @@ class SequencingBase(Base):
 class Sequencing(SequencingBase, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(80))
-    timestamp = db.Column(db.DateTime)
     preparation_id = db.Column(db.Integer, db.ForeignKey('preparation.id'))
-    preparation = db.relationship('Preparation', 
-            backref = db.backref('preparation', lazy = 'dynamic'))
+    processing = db.relationship('Processing', 
+                                 backref='sequencing', lazy='select')
+    timestamp = db.Column(db.DateTime)
 
-    def __init__(self, name, preparation, timestamp=None):
+    def __init__(self, name, preparation_id, timestamp=None):
         self.name = name
-        self.preparation = preparation
+        self.preparation_id = preparation_id
         if not timestamp:
             timestamp = datetime.now()
         self.timestamp = timestamp
@@ -202,17 +201,15 @@ class Processing(ProcessingBase, db.Model):
     host = db.Column(db.String(80))
     cmd = db.Column(db.String(1024))
     output_dir = db.Column(db.String(1024))
-    timestamp = db.Column(db.DateTime)
     sequencing_id = db.Column(db.Integer, db.ForeignKey('sequencing.id'))
-    sequencing = db.relationship('Sequencing', 
-            backref = db.backref('sequencing', lazy = 'dynamic'))
+    timestamp = db.Column(db.DateTime)
 
-    def __init__(self, name, host, cmd, output_dir, sequencing, timestamp=None):
+    def __init__(self, name, host, cmd, output_dir, sequencing_id, timestamp=None):
         self.name = name
         self.host = host
         self.cmd = cmd
         self.output_dir = output_dir
-        self.sequencing = sequencing
+        self.sequencing_id = sequencing_id
         if not timestamp:
             timestamp = datetime.now()
         self.timestamp = timestamp

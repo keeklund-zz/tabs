@@ -73,7 +73,7 @@ def new_sample():
     if form.validate_on_submit():
         project = Projects.query.filter_by(name=form.project.data).first()
         if project:
-            sample = Samples(form.data, project)
+            sample = Samples(form.data, project.id)
             db.session.add(sample)
             db.session.commit()
             flash("New Sample: '%s' - added successfully!" % form.name.data)
@@ -99,7 +99,7 @@ def new_sequencing():
         abort(400)
     if form.validate_on_submit():
         preparation = Preparation.query.filter_by(name=form.preparation.data).first()
-        sequencing = Sequencing(form.name.data, preparation)
+        sequencing = Sequencing(form.name.data, preparation.id)
         db.session.add(sequencing)
         db.session.commit()
         flash("New Sequencing Method: '%s' add successfully to '%s'!" % \
@@ -120,7 +120,7 @@ def new_preparation():
         abort(400)
     if form.validate_on_submit():
         sample = Samples.query.filter_by(name=form.sample.data).first()
-        preparation = Preparation(form.data, sample)
+        preparation = Preparation(form.data, sample.id)
         db.session.add(preparation)
         db.session.commit()
         flash("New Preparation: '%s' add successfully to '%s'!" % \
@@ -145,7 +145,7 @@ def new_processing():
                                 form.host.data,
                                 form.cmd.data,
                                 form.output_dir.data,
-                                sequencing)
+                                sequencing.id)
         db.session.add(processing)
         db.session.commit()
         flash("New Processing: '%s' add successfully to '%s'!" % \

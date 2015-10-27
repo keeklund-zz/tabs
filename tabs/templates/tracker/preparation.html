@@ -25,7 +25,7 @@
     <tr><td>Concentration:</td><td>{{ data.concentration }}</td></tr>
     <tr><td>Fedex Tracking Number:</td><td>{{ data.fedex_tracking_number }}</td></tr>
     <tr><td>Comments:</td><td>{{ data.comments }}</td></tr>
-    <tr><td>Sample:</td><td>{{ data.sample.name }}</td></tr>
+    <tr><td>Number of sequencing:</td><td>{{ data.sequencing|length }}</td></tr>
     <tr><td>Timestamp:</td><td>{{ data.timestamp }}</td></tr>
   </table>
   {% if subdata_type %}
